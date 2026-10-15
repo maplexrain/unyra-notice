@@ -1,4 +1,4 @@
-# 公告发布工作流（放在**独立的公告仓库** `app-notice` 里，不是应用源码仓库）
+# 公告发布工作流（放在**独立的公告仓库** `unyra-notice` 里，不是应用源码仓库）
 #
 # 它只做一件事：把 Repository Secret 里的 NOTICE_JSON 临时写成 public/notice.json，
 # 校验通过后部署到 GitHub Pages。
