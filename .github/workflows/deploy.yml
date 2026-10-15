@@ -83,13 +83,16 @@ jobs:
           NODE
 
       - name: 配置 Pages
-        uses: actions/configure-pages@v5
+        # 三个 Action 的版本都取当前官方推荐值（各自最新主版本），运行时是 node24。
+        # 不要沿用过时的 v5/v3/v4：那几版跑在 node20 上，GitHub 已开始弃用，
+        # 每次运行都会打一条 deprecation 警告（2026-10 实测）。
+        uses: actions/configure-pages@v6
 
       - name: 打包静态文件
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: public
-          # 部署产物里带着公告正文，保留期压到最短（默认 90 天，能下载的人不止你一个）
+          # 部署产物里带着公告正文，保留期压到最短（v5 默认就是 1 天，这里写明确）
           retention-days: 1
 
   deploy:
@@ -101,7 +104,7 @@ jobs:
     steps:
       - name: 部署到 GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
       - name: 输出公告地址
         run: echo "公告地址（填进客户端的 src/lib/noticeConfig.ts）：${{ steps.deployment.outputs.page_url }}notice.json"
